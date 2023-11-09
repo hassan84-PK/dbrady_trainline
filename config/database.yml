@@ -1,0 +1,31 @@
+# use env vars to set up database
+# you can use dot-env for local setup, have a look here:
+# https://github.com/bkeepers/dotenv
+# gem is already included
+default: &default
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
+  user: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: <%= ENV['DB_NAME_DEV'] %>
+
+staging:
+  <<: *default
+  database: <%= ENV['DB_NAME_DEV'] %>
+
+test:
+  <<: *default
+  password: <%= ENV['DB_PASS'] %>
+  database: <%= ENV['DB_NAME_DEV'] %>
+
+production:
+  <<: *default
+  database: <%= ENV['DB_NAME_DEV'] %>
